@@ -1,15 +1,13 @@
 import { fetchWeatherApi } from "openmeteo";
-// import { type Coordinates } from "./types/ApiTypes";
+import { type Coordinates } from "./types/ApiTypes";
 
 export class Api {
 
-    public static async getWeather() { //: Promise<unknown>   coordinates: Coordinates
-
-
+    public static async getWeather(coordinates: Coordinates) {
 
         const params = {
-            latitude: 52.2298,
-            longitude: 21.0118,
+            latitude: coordinates.lat,
+            longitude: coordinates.lon,
             hourly: ["temperature_2m", "rain"],
             timezone: "auto",
         };
@@ -26,18 +24,16 @@ export class Api {
         const timezone = response.timezone();
         const timezoneAbbreviation = response.timezoneAbbreviation();
         const utcOffsetSeconds = response.utcOffsetSeconds();
-
-        console.log(
-            `\nCoordinates: ${latitude}°N ${longitude}°E`,
-            `\nElevation: ${elevation}m asl`,
-            `\nTimezone: ${timezone} ${timezoneAbbreviation}`,
-            `\nTimezone difference to GMT+0: ${utcOffsetSeconds}s`,
-        );
-
         const hourly = response.hourly()!;
 
         // Note: The order of weather variables in the URL query and the indices below need to match!
         const weatherData = {
+            latitude,
+            longitude,
+            timezone,
+            elevation,
+            utcOffsetSeconds,
+            timezoneAbbreviation,
             hourly: {
                 time: Array.from(
                     { length: (Number(hourly.timeEnd()) - Number(hourly.time())) / hourly.interval() },
@@ -48,7 +44,6 @@ export class Api {
             },
         };
 
-        // The 'weatherData' object now contains a simple structure, with arrays of datetimes and weather information
-        console.log("\nHourly data:\n", weatherData.hourly)
+        return weatherData;
     }
 }
