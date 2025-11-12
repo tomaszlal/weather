@@ -1,5 +1,5 @@
 import { fetchWeatherApi } from "openmeteo";
-import { type Coordinates } from "./types/ApiTypes";
+import { type Coordinates, type WeatherResponse } from "./types/ApiTypes";
 
 export class Api {
 
@@ -27,7 +27,7 @@ export class Api {
         const hourly = response.hourly()!;
 
         // Note: The order of weather variables in the URL query and the indices below need to match!
-        const weatherData = {
+        const weatherData : WeatherResponse= {
             latitude,
             longitude,
             timezone,

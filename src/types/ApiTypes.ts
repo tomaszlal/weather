@@ -3,22 +3,15 @@ export type Coordinates = {
     lon: number;
 }
 
-export interface HourlyMetric {
-    [key: string]: number;
-}
-
-/**
- * Interface for the container holding all hourly time-series data.
- */
 export interface HourlyData {
     /** Array of ISO 8601 timestamps for each data point (e.g., "2025-11-11T00:00:00.000Z"). */
-    time: string[];
+    time: Date[];
     
     /** Temperature at 2 meters, mapped by hourly index. */
-    temperature_2m: HourlyMetric;
+    temperature_2m: Float32Array<ArrayBufferLike> | null;
     
     /** Rain volume, mapped by hourly index. */
-    rain: HourlyMetric;
+    rain: Float32Array<ArrayBufferLike> | null;
 }
 
 /**
