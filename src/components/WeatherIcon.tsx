@@ -1,18 +1,25 @@
-import { WeatherIconNameMap } from "../types/ApiTypes";
+import * as React from 'react';
+import { WeatherIconNameMap } from '../types/ApiTypes';
 
-type Props = {
+interface Props {
   weatherCode: number;
 }
 
-export default function WeatherIcon({ weatherCode }: Props) {
+export default class WeatherIcon extends React.Component<Props> {
+  private src: string;
 
-  const src = WeatherIconNameMap[weatherCode];
+  constructor(props: Props) {
+    super(props);
+    this.src = WeatherIconNameMap[this.props.weatherCode]
+  }
 
-  return (
-    <img
-      className="size-8"
-      src={`/assets/${src}`}
-      alt="wheater icon"
-    />
-  );
+  public render() {
+    return (
+      <img
+        className="size-8"
+        src={`/assets/${this.src}`}
+        alt="wheater icon"
+      />
+    );
+  }
 }
