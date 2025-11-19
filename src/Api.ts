@@ -10,7 +10,8 @@ export class Api {
             longitude: coordinates.lon,
             daily: ["temperature_2m_max", "temperature_2m_min", "weather_code"],
             hourly: ["temperature_2m", "rain", "weather_code"],
-            current: ["temperature_2m", "rain", "showers", "snowfall", "cloud_cover", "weather_code"],
+            current: ["temperature_2m", "rain", "showers", "snowfall", "cloud_cover",
+                "weather_code", "apparent_temperature", "relative_humidity_2m", "wind_speed_10m"],
             timezone: "auto",
             timeformat: "unixtime",
         };
@@ -65,6 +66,9 @@ export class Api {
                 snowfall: current.variables(3)!.value(),
                 cloud_cover: current.variables(4)!.value(),
                 weather_code: current.variables(5)!.value(),
+                apparent_temperature: current.variables(6)!.value(),
+                relative_humidity_2m: current.variables(7)!.value(),
+                wind_speed_10m: current.variables(8)!.value(),
             },
         };
 

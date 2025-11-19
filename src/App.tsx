@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div className="flex flex-col gap-8">
-     <CurrentWeather />
+      <CurrentWeather />
       <HourlyForecast />
       <DailyForecast />
     </div>
