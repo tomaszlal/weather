@@ -1,4 +1,4 @@
-export class Utils {
+export class ApiUtils {
 
     public static formatAndRound(value: number): string {
         const roundedString = value.toFixed(2);

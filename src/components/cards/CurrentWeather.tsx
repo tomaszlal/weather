@@ -1,9 +1,9 @@
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { Api } from "../../Api"
 import Card from "./Card"
-import { Utils } from "../../utils/Utils"
+import { ApiUtils } from "../../utils/ApiUtils"
 import WeatherIcon from "../WeatherIcon"
-import { WeatherNameMap } from '../../types/ApiTypes';
+import { WeatherNameMap } from "../../types/IconTypes"
 
 export default function CurrentWeather() {
 
@@ -16,11 +16,11 @@ export default function CurrentWeather() {
         <Card title="Current weather" childrenClassName="flex flex-col items-center">
             <div className="flex flex-col gap-2 items-center">
                 <h2 className="text-6xl font-semibold text-center">
-                    {Utils.formatAndRound(data?.current.temperature_2m as number)}°C
+                    {ApiUtils.formatAndRound(data?.current.temperature_2m as number)}°C
                 </h2>
                 <WeatherIcon
                     weatherCode={data?.current.weather_code || 0}
-                    className="size-36"
+                    className="size-44"
                 />
                 <h3 className="capitalize text-xl"> {WeatherNameMap[data?.current.weather_code || 0]}</h3>
 
@@ -35,7 +35,7 @@ export default function CurrentWeather() {
                 <div className="flex justify-between">
                     <div className="flex flex-col gap-2 items-center">
                         <p>Feels like</p>
-                        <p>{Utils.formatAndRound(data?.current.apparent_temperature || 0)}°C</p>
+                        <p>{ApiUtils.formatAndRound(data?.current.apparent_temperature || 0)}°C</p>
                     </div>
                     <div className="flex flex-col gap-2 items-center">
                         <p>Humidity</p>
@@ -43,7 +43,7 @@ export default function CurrentWeather() {
                     </div>
                     <div className="flex flex-col gap-2 items-center">
                         <p>Wind</p>
-                        <p>{Utils.formatAndRound(data?.current.wind_speed_10m || 0)}km/h</p>
+                        <p>{ApiUtils.formatAndRound(data?.current.wind_speed_10m || 0)}km/h</p>
                     </div>
                 </div>
             </div>

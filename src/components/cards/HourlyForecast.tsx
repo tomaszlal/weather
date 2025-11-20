@@ -2,7 +2,7 @@ import Card from "./Card"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { Api } from "../../Api"
 import WeatherIcon from "../WeatherIcon"
-import { Utils } from "../../utils/Utils"
+import { ApiUtils } from "../../utils/ApiUtils"
 
 export default function HourlyForecast() {
 
@@ -20,7 +20,7 @@ export default function HourlyForecast() {
                         minute:"2-digit"
                     })}</p>
                     <WeatherIcon weatherCode={data?.hourly.weather_code?.at(index) || 0} />
-                    <p className="whitespace-nowrap">{Utils.formatAndRound(data?.hourly.temperature_2m?.at(index) || 0)}°C</p>
+                    <p className="whitespace-nowrap">{ApiUtils.formatAndRound(data?.hourly.temperature_2m?.at(index) || 0)}°C</p>
                 </div>
             ))}
         </Card>

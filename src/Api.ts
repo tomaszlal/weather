@@ -8,10 +8,10 @@ export class Api {
         const params = {
             latitude: coordinates.lat,
             longitude: coordinates.lon,
-            daily: ["temperature_2m_max", "temperature_2m_min", "weather_code"],
+            daily: ["temperature_2m_max", "temperature_2m_min", "weather_code", "sunrise", "sunset"],
             hourly: ["temperature_2m", "rain", "weather_code"],
             current: ["temperature_2m", "rain", "showers", "snowfall", "cloud_cover",
-                "weather_code", "apparent_temperature", "relative_humidity_2m", "wind_speed_10m"],
+                "weather_code", "apparent_temperature", "relative_humidity_2m", "wind_speed_10m", "is_day"],
             timezone: "auto",
             timeformat: "unixtime",
         };
@@ -31,6 +31,9 @@ export class Api {
         const hourly = response.hourly()!;
         const daily = response.daily()!;
         const current = response.current()!;
+
+        const sunrise = daily.variables(3)!;
+        const sunset = daily.variables(4)!;
 
         // Note: The order of weather variables in the URL query and the indices below need to match!
         const weatherData: WeatherResponse = {
@@ -57,6 +60,14 @@ export class Api {
                 temperature_2m_max: daily.variables(0)!.valuesArray(),
                 temperature_2m_min: daily.variables(1)!.valuesArray(),
                 weather_code: daily.variables(2)!.valuesArray(),
+                // Map Int64 values to according structure
+                sunrise: [...Array(sunrise.valuesInt64Length())].map(
+                    (_, i) => new Date((Number(sunrise.valuesInt64(i)) + utcOffsetSeconds) * 1000)
+                ),
+                // Map Int64 values to according structure
+                sunset: [...Array(sunset.valuesInt64Length())].map(
+                    (_, i) => new Date((Number(sunset.valuesInt64(i)) + utcOffsetSeconds) * 1000)
+                ),
             },
             current: {
                 time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
@@ -69,6 +80,7 @@ export class Api {
                 apparent_temperature: current.variables(6)!.value(),
                 relative_humidity_2m: current.variables(7)!.value(),
                 wind_speed_10m: current.variables(8)!.value(),
+                is_day: current.variables(9)!.value(),
             },
         };
 

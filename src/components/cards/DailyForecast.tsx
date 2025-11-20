@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Api } from "../../Api";
 import Card from "./Card";
-import { Utils } from "../../utils/Utils";
+import { ApiUtils } from "../../utils/ApiUtils";
 import WeatherIcon from '../WeatherIcon';
 
 export default function DailyForecast() {
@@ -25,8 +25,8 @@ export default function DailyForecast() {
                         })}
                     </p>
                     <WeatherIcon weatherCode={data?.daily.weather_code?.at(index) || 0} />
-                    <p>{Utils.formatAndRound(data?.daily.temperature_2m_max?.at(index) || 0)}°C</p>
-                    <p>{Utils.formatAndRound(data?.daily.temperature_2m_min?.at(index) || 0)}°C</p>
+                    <p>{ApiUtils.formatAndRound(data?.daily.temperature_2m_max?.at(index) || 0)}°C</p>
+                    <p>{ApiUtils.formatAndRound(data?.daily.temperature_2m_min?.at(index) || 0)}°C</p>
                 </div>
             ))}
         </Card >
