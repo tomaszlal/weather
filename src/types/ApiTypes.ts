@@ -22,6 +22,8 @@ export interface CurrentData {
     relative_humidity_2m: number | null;
     wind_speed_10m: number | null;
     is_day: number | null;
+    pressure_msl: number | null;
+    wind_direction_10m: number | null;
 }
 
 export interface DailyData {
@@ -44,3 +46,19 @@ export interface WeatherResponse {
     daily: DailyData;
     current: CurrentData;
 }
+
+export type AdditionalRow = {
+    label: string;
+    value: string;
+};
+
+export const AdditionalRows: Array<AdditionalRow> = [
+    {
+        label: "Cloudines (%)",
+        value: "cloud_cover"
+    },
+    {
+        label: "Pressure (hPa)",
+        value: "pressure_msl"
+    },
+]

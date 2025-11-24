@@ -11,7 +11,8 @@ export class Api {
             daily: ["temperature_2m_max", "temperature_2m_min", "weather_code", "sunrise", "sunset"],
             hourly: ["temperature_2m", "rain", "weather_code"],
             current: ["temperature_2m", "rain", "showers", "snowfall", "cloud_cover",
-                "weather_code", "apparent_temperature", "relative_humidity_2m", "wind_speed_10m", "is_day"],
+                "weather_code", "apparent_temperature", "relative_humidity_2m",
+                "wind_speed_10m", "is_day", "pressure_msl", "wind_direction_10m"],
             timezone: "auto",
             timeformat: "unixtime",
         };
@@ -46,7 +47,7 @@ export class Api {
             hourly: {
                 time: Array.from(
                     { length: (Number(hourly.timeEnd()) - Number(hourly.time())) / hourly.interval() },
-                    (_, i) => new Date((Number(hourly.time()) + i * hourly.interval() + utcOffsetSeconds) * 1000)
+                    (_, i) => new Date((Number(hourly.time()) + i * hourly.interval()) * 1000)
                 ),
                 temperature_2m: hourly.variables(0)!.valuesArray(),
                 rain: hourly.variables(1)!.valuesArray(),
@@ -55,22 +56,22 @@ export class Api {
             daily: {
                 time: Array.from(
                     { length: (Number(daily.timeEnd()) - Number(daily.time())) / daily.interval() },
-                    (_, i) => new Date((Number(daily.time()) + i * daily.interval() + utcOffsetSeconds) * 1000)
+                    (_, i) => new Date((Number(daily.time()) + i * daily.interval()) * 1000)
                 ),
                 temperature_2m_max: daily.variables(0)!.valuesArray(),
                 temperature_2m_min: daily.variables(1)!.valuesArray(),
                 weather_code: daily.variables(2)!.valuesArray(),
                 // Map Int64 values to according structure
                 sunrise: [...Array(sunrise.valuesInt64Length())].map(
-                    (_, i) => new Date((Number(sunrise.valuesInt64(i)) + utcOffsetSeconds) * 1000)
+                    (_, i) => new Date((Number(sunrise.valuesInt64(i))) * 1000)
                 ),
                 // Map Int64 values to according structure
                 sunset: [...Array(sunset.valuesInt64Length())].map(
-                    (_, i) => new Date((Number(sunset.valuesInt64(i)) + utcOffsetSeconds) * 1000)
+                    (_, i) => new Date((Number(sunset.valuesInt64(i))) * 1000)
                 ),
             },
             current: {
-                time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
+                time: new Date((Number(current.time())) * 1000),
                 temperature_2m: current.variables(0)!.value(),
                 rain: current.variables(1)!.value(),
                 showers: current.variables(2)!.value(),
@@ -81,6 +82,8 @@ export class Api {
                 relative_humidity_2m: current.variables(7)!.value(),
                 wind_speed_10m: current.variables(8)!.value(),
                 is_day: current.variables(9)!.value(),
+                pressure_msl: current.variables(10)!.value(),
+                wind_direction_10m: current.variables(11)!.value(),
             },
         };
 
