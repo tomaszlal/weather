@@ -15,25 +15,32 @@ export class ApiUtils {
 
     public static getAdditionalInfo(data: WeatherResponse) {
 
-        const value = Object.entries(data.current).forEach(([key, value]) => {
+        const additionalInfo : Map<string, number> = new Map();
 
+        Object.entries(data.current).forEach(([key, value]) => {
             if (this.current.includes(key)) {
+                additionalInfo.set(key,value);
                 console.log(`key : ${key} -> ${value}`);
+            }
+        });
+        
+
+        Object.entries(data.daily).forEach(([key, value]) => {
+  
+            if (this.daily.includes(key)) {
+                // additionalInfo.set(key,value);
+                console.log(`key : ${key} -> ${value[0]}`);
             }
         });
 
 
+        // this.daily.forEach((key) => {
+           
+        // })
 
-        // [pressure_msl];
-        console.log(value);
+        // data.daily.sunrise[0].getDate()
 
-
-        // data.utcOffsetSeconds
-
-
-
-
-        console.log(data.current.pressure_msl);
+        console.log(additionalInfo);
         return data.current.pressure_msl;
     }
 }
