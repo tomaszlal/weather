@@ -1,11 +1,11 @@
-import type { WeatherResponse } from "../types/ApiTypes";
+import type { AdditionalRow as AdditionalInfoRow, WeatherResponse } from "../types/ApiTypes";
 
 export class ApiUtils {
 
     private static current = ["cloud_cover", "pressure_msl", "wind_direction_10m"];
     private static daily = ["sunrise", "sunset"];
 
-    public static formatAndRound(num: number): string {
+    public static formatAndRoundToHalf(num: number): string {
         if (typeof num !== 'number' || isNaN(num)) {
             return '0.0';
         }
@@ -13,38 +13,29 @@ export class ApiUtils {
         return roundedNumber.toFixed(1);
     }
 
-    public static getAdditionalInfo(data: WeatherResponse) {
-
-        const additionalInfo : Map<string, number> = new Map();
-
+    public static getAdditionalInfo(data: WeatherResponse): Map<string, number> {
+        const additionalInfo: Map<string, number> = new Map();
         Object.entries(data.current).forEach(([key, value]) => {
             if (this.current.includes(key)) {
-                additionalInfo.set(key,value);
-                console.log(`key : ${key} -> ${value}`);
+                additionalInfo.set(key, Math.floor(value));
             }
         });
-        
-
         Object.entries(data.daily).forEach(([key, value]) => {
-  
+
             if (this.daily.includes(key)) {
-                // additionalInfo.set(key,value);
-                console.log(`key : ${key} -> ${value[0]}`);
+                additionalInfo.set(key, (value[0] as Date).valueOf());
             }
         });
+        return additionalInfo;
+    }
 
-
-        // this.daily.forEach((key) => {
-           
-        // })
-
-        // data.daily.sunrise[0].getDate()
-
-        console.log(additionalInfo);
-        return data.current.pressure_msl;
+    public static formatComponent(data: AdditionalInfoRow): number | string {
+        if (this.daily.includes(data.label)) {
+            return new Date(data.value).toLocaleTimeString("pl-PL", {
+                hour: "numeric",
+                minute: "2-digit",
+            });
+        }
+        return data.value;
     }
 }
-
-export type kupaRows = {
-    [code: number]: string;
-};

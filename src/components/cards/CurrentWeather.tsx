@@ -15,7 +15,7 @@ export default function CurrentWeather() {
     return (
         <Card title="Current weather" childrenClassName="flex flex-col items-center gap-6">
             <h2 className="text-6xl font-semibold text-center">
-                {ApiUtils.formatAndRound(data?.current.temperature_2m as number)}°C
+                {ApiUtils.formatAndRoundToHalf(data?.current.temperature_2m as number)}°C
             </h2>
             <WeatherIcon
                 weatherCode={data?.current.weather_code || 0}
@@ -34,7 +34,7 @@ export default function CurrentWeather() {
             <div className="flex justify-between w-full">
                 <div className="flex flex-col items-center gap-2">
                     <p className="text-gray-500">Feels like</p>
-                    <p>{ApiUtils.formatAndRound(data?.current.apparent_temperature || 0)}°C</p>
+                    <p>{ApiUtils.formatAndRoundToHalf(data?.current.apparent_temperature || 0)}°C</p>
                 </div>
                 <div className="flex flex-col items-center gap-2">
                     <p className="text-gray-500">Humidity</p>
@@ -42,7 +42,7 @@ export default function CurrentWeather() {
                 </div>
                 <div className="flex flex-col items-center gap-2">
                     <p className="text-gray-500">Wind</p>
-                    <p>{ApiUtils.formatAndRound(data?.current.wind_speed_10m || 0)}km/h</p>
+                    <p>{ApiUtils.formatAndRoundToHalf(data?.current.wind_speed_10m || 0)}km/h</p>
                 </div>
             </div>
         </Card>

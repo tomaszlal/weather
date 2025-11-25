@@ -25,8 +25,8 @@ export default function DailyForecast() {
                         })}
                     </p>
                     <WeatherIcon weatherCode={data?.daily.weather_code?.at(index) || 0} />
-                    <p>{ApiUtils.formatAndRound(data?.daily.temperature_2m_max?.at(index) || 0)}°C</p>
-                    <p>{ApiUtils.formatAndRound(data?.daily.temperature_2m_min?.at(index) || 0)}°C</p>
+                    <p>{ApiUtils.formatAndRoundToHalf(data?.daily.temperature_2m_max?.at(index) || 0)}°C</p>
+                    <p>{ApiUtils.formatAndRoundToHalf(data?.daily.temperature_2m_min?.at(index) || 0)}°C</p>
                 </div>
             ))}
         </Card >

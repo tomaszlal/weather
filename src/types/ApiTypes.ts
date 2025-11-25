@@ -49,16 +49,5 @@ export interface WeatherResponse {
 
 export type AdditionalRow = {
     label: string;
-    value: string;
-};
-
-export const AdditionalRows: Array<AdditionalRow> = [
-    {
-        label: "Cloudines (%)",
-        value: "cloud_cover"
-    },
-    {
-        label: "Pressure (hPa)",
-        value: "pressure_msl"
-    },
-]
+    value: number;
+}
