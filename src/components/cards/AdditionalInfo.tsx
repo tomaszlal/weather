@@ -2,7 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import Card from './Card';
 import { Api } from '../../Api';
 import { ApiUtils } from '../../utils/ApiUtils';
-// import Sunrise from '/src/assets/sunrise.svg';
+import Sunrise from '/src/assets/sunrise.svg?react';
 
 // type Props = undefined;
 
@@ -18,10 +18,11 @@ export default function AdditionalInfo() {
     return (
         <Card title="Additional Weather Info" childrenClassName="flex flex-col gap-8">
             {
-                Array.from(rows.entries()).map (([key, value]) => (
+                Array.from(rows.entries()).map(([key, value]) => (
                     <div key={key} className='flex justify-between'>
                         <span className='text-gray-500'>{key}</span>
-                        <span>{ApiUtils.formatComponent({label:key, value})}</span>
+                        <span>{ApiUtils.formatComponent({ label: key, value })}</span>
+                        <Sunrise />
                     </div>
                 ))
             }
