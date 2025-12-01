@@ -1,4 +1,4 @@
-import type { AdditionalRow as AdditionalInfoRow, WeatherResponse } from "../types/ApiTypes";
+import type { AdditionalData, AdditionalRow as AdditionalInfoRow, WeatherResponse } from "../types/ApiTypes";
 
 export class ApiUtils {
 
@@ -13,17 +13,16 @@ export class ApiUtils {
         return roundedNumber.toFixed(1);
     }
 
-    public static getAdditionalInfo(data: WeatherResponse): Map<string, number> {
-        const additionalInfo: Map<string, number> = new Map();
+    public static getAdditionalInfo(data: WeatherResponse): Map<string, AdditionalData> {
+        const additionalInfo: Map<string, AdditionalData> = new Map();
         Object.entries(data.current).forEach(([key, value]) => {
             if (this.current.includes(key)) {
-                additionalInfo.set(key, Math.floor(value));
+                additionalInfo.set(key, { value: Math.floor(value), iconSvgName: `${key}.svg` });
             }
         });
         Object.entries(data.daily).forEach(([key, value]) => {
-
             if (this.daily.includes(key)) {
-                additionalInfo.set(key, (value[0] as Date).valueOf());
+                additionalInfo.set(key, { value: (value[0] as Date).valueOf(), iconSvgName: `${key}.svg` });
             }
         });
         return additionalInfo;

@@ -2,7 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import Card from './Card';
 import { Api } from '../../Api';
 import { ApiUtils } from '../../utils/ApiUtils';
-import Sunrise from '/src/assets/sunrise.svg?react';
+import { AdditionalData } from '../../types/ApiTypes';
 
 // type Props = undefined;
 
@@ -21,8 +21,8 @@ export default function AdditionalInfo() {
                 Array.from(rows.entries()).map(([key, value]) => (
                     <div key={key} className='flex justify-between'>
                         <span className='text-gray-500'>{key}</span>
-                        <span>{ApiUtils.formatComponent({ label: key, value })}</span>
-                        <Sunrise />
+                        {/* <span>{ApiUtils.formatComponent({ label: key, value.value })}</span> */}
+                        <img src="/src/assets/sunrise.svg" alt="svg" />
                     </div>
                 ))
             }
