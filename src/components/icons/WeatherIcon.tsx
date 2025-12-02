@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { WeatherIconNameMap } from '../types/IconTypes';
+import { WeatherIconNameMap } from '../../types/IconTypes';
 
 interface Props {
   weatherCode: number;

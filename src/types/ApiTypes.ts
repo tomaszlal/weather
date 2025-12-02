@@ -51,8 +51,3 @@ export type AdditionalRow = {
     label: string;
     value: number;
 }
-
-export type AdditionalData = {
-    value: number,
-    iconSvgName: string
-}

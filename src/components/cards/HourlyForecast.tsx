@@ -1,7 +1,7 @@
 import Card from "./Card"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { Api } from "../../Api"
-import WeatherIcon from "../WeatherIcon"
+import WeatherIcon from "../icons/WeatherIcon"
 import { ApiUtils } from "../../utils/ApiUtils"
 
 export default function HourlyForecast() {

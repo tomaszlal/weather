@@ -2,7 +2,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Api } from "../../Api";
 import Card from "./Card";
 import { ApiUtils } from "../../utils/ApiUtils";
-import WeatherIcon from '../WeatherIcon';
+import WeatherIcon from '../icons/WeatherIcon';
 
 export default function DailyForecast() {
 
