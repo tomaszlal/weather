@@ -14,7 +14,7 @@ export default class SvgIcon extends React.Component<Props> {
   public render() {
     return (
       <img
-        className={this.props.className || "size-8"}
+        className={this.props.className || "size-6"}
         src={`/assets/${this.props.src}.svg`}
         alt="wheater svg icon"
       />
