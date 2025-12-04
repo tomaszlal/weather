@@ -4,11 +4,17 @@ import Card from "./Card";
 import { ApiUtils } from "../../utils/ApiUtils";
 import WeatherIcon from "../icons/WeatherIcon";
 import { WeatherNameMap } from "../../types/IconTypes";
+import type { Coordinates } from "../../types/ApiTypes";
 
-export default function CurrentWeather() {
+type Props = {
+  coordinates: Coordinates;
+};
+
+export default function CurrentWeather({ coordinates }: Props) {
   const { data } = useSuspenseQuery({
     queryKey: ["weather"],
-    queryFn: () => Api.getWeather({ lat: 50, lon: 20 }),
+    queryFn: () =>
+      Api.getWeather({ lat: coordinates.lat, lon: coordinates.lon }),
   });
 
   return (
