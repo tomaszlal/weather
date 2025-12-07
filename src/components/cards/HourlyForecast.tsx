@@ -3,11 +3,16 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Api } from "../../Api";
 import WeatherIcon from "../icons/WeatherIcon";
 import { ApiUtils } from "../../utils/ApiUtils";
+import type { Coordinates } from "../../types/ApiTypes";
 
-export default function HourlyForecast() {
+type Props = {
+  coordinates: Coordinates;
+};
+
+export default function HourlyForecast({ coordinates }: Props) {
   const { data } = useSuspenseQuery({
-    queryKey: ["weather"],
-    queryFn: () => Api.getWeather({ lat: 50, lon: 20 }),
+    queryKey: ["weather", coordinates],
+    queryFn: () => Api.getWeather({ lat: coordinates.lat, lon: coordinates.lon }),
   });
 
   return (

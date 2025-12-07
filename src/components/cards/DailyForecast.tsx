@@ -3,11 +3,16 @@ import { Api } from "../../Api";
 import Card from "./Card";
 import { ApiUtils } from "../../utils/ApiUtils";
 import WeatherIcon from "../icons/WeatherIcon";
+import type { Coordinates } from "../../types/ApiTypes";
 
-export default function DailyForecast() {
+type Props = {
+  coordinates: Coordinates;
+};
+
+export default function DailyForecast({ coordinates }: Props) {
   const { data } = useSuspenseQuery({
-    queryKey: ["weather"],
-    queryFn: () => Api.getWeather({ lat: 50, lon: 20 }),
+    queryKey: ["weather", coordinates],
+    queryFn: () => Api.getWeather({ lat: coordinates.lat, lon: coordinates.lon }),
   });
 
   // {`https://openweathermap.org/img/wn/10d.png`}

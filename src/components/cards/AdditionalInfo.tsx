@@ -5,11 +5,16 @@ import { ApiUtils } from "../../utils/ApiUtils";
 import SvgIcon from "../icons/SvgIcon";
 import { Utils } from "../../utils/Utils";
 import type { WeatherKey } from "../../types/Types";
+import type { Coordinates } from "../../types/ApiTypes";
 
-export default function AdditionalInfo() {
+type Props = {
+  coordinates: Coordinates;
+};
+
+export default function AdditionalInfo({ coordinates }: Props) {
   const { data } = useSuspenseQuery({
-    queryKey: ["weather"],
-    queryFn: () => Api.getWeather({ lat: 50, lon: 20 }),
+    queryKey: ["weather", coordinates],
+    queryFn: () => Api.getWeather({ lat: coordinates.lat, lon: coordinates.lon }),
   });
 
   const rows = ApiUtils.getAdditionalInfo(data);
