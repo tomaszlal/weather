@@ -19,14 +19,16 @@ export class Map extends React.Component<Props> {
       <MapContainer
         center={[this.props.coordinates.lat, this.props.coordinates.lon]}
         zoom={5}
-        style={{ width: "1000px", height: "500px" }}
+        style={{ width: "750px", height: "500px" }}
       >
         <MapClick onMapClick={this.props.onMapClick} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[50, 20]} />
+        <Marker
+          position={[this.props.coordinates.lat, this.props.coordinates.lon]}
+        />
       </MapContainer>
     );
   }

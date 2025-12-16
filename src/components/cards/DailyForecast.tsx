@@ -15,7 +15,6 @@ export default function DailyForecast({ coordinates }: Props) {
     queryFn: () => Api.getWeather({ lat: coordinates.lat, lon: coordinates.lon }),
   });
 
-  // {`https://openweathermap.org/img/wn/10d.png`}
   return (
     <Card title="Daily Forecast" childrenClassName="flex flex-col gap-4">
       {data?.daily.time.map((day, index) => (
